@@ -1,0 +1,57 @@
+erDiagram
+    CLIENTE ||--o{ VEICULO : possui
+    VEICULO ||--o{ ORDEM_SERVICO : "é atendido em"
+    MECANICO ||--o{ ORDEM_SERVICO : "é responsável por"
+    ORDEM_SERVICO ||--|{ ITEM_SERVICO : contém
+    SERVICO ||--o{ ITEM_SERVICO : "é usado em"
+
+    CLIENTE {
+        BIGINT id PK
+        VARCHAR(100) nome "NOT NULL"
+        VARCHAR(14) cpf UK "NOT NULL"
+        VARCHAR(20) telefone
+        VARCHAR(100) email
+        VARCHAR(150) endereco
+    }
+
+    VEICULO {
+        BIGINT id PK
+        VARCHAR(8) placa UK "NOT NULL"
+        VARCHAR(50) marca "NOT NULL"
+        VARCHAR(50) modelo "NOT NULL"
+        INTEGER ano
+        VARCHAR(30) cor
+        BIGINT cliente_id FK "NOT NULL"
+    }
+
+    MECANICO {
+        BIGINT id PK
+        VARCHAR(100) nome "NOT NULL"
+        VARCHAR(14) cpf UK "NOT NULL"
+        VARCHAR(20) telefone
+        VARCHAR(50) especialidade
+    }
+
+    SERVICO {
+        BIGINT id PK
+        VARCHAR(100) descricao "NOT NULL"
+        DECIMAL valor "(10,2) NOT NULL"
+    }
+
+    ORDEM_SERVICO {
+        BIGINT id PK
+        DATE data_abertura "NOT NULL"
+        DATE data_conclusao
+        VARCHAR(20) status "NOT NULL"
+        VARCHAR(255) observacao
+        BIGINT veiculo_id FK "NOT NULL"
+        BIGINT mecanico_id FK "NOT NULL"
+    }
+
+    ITEM_SERVICO {
+        BIGINT id PK
+        BIGINT ordem_servico_id FK "NOT NULL"
+        BIGINT servico_id FK "NOT NULL"
+        INTEGER quantidade "NOT NULL"
+        DECIMAL valor_unitario "(10,2) NOT NULL"
+    }

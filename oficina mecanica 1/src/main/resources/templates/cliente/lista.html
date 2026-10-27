@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Clientes')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topo('clientes')}"></header>
+<main>
+    <div class="cabecalho-pagina">
+        <div>
+            <h1>Clientes</h1>
+            <p class="subtitulo">Donos dos veículos atendidos pela oficina</p>
+        </div>
+        <a class="botao primario" th:href="@{/clientes/novo}">Cadastrar cliente</a>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
+
+    <section class="painel">
+        <form class="pesquisa" method="get" th:action="@{/clientes}">
+            <div class="campo">
+                <label for="busca">Pesquisar por nome ou CPF</label>
+                <input id="busca" name="busca" type="search" th:value="${busca}" placeholder="Ex.: Maria">
+            </div>
+            <button type="submit" class="botao">Pesquisar</button>
+        </form>
+
+        <div class="tabela-rolagem">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th><span class="sr-only">Ações</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cliente : ${lista}">
+                    <td th:text="${cliente.nome}">João da Silva</td>
+                    <td th:text="${cliente.cpf}">123.456.789-00</td>
+                    <td th:text="${cliente.telefone}">(47) 99999-1111</td>
+                    <td th:text="${cliente.email}">joao@email.com</td>
+                    <td class="acoes-linha">
+                        <a class="botao pequeno" th:href="@{/clientes/{id}/editar(id=${cliente.id})}">Editar</a>
+                        <a class="botao pequeno" th:href="@{/clientes/{id}/excluir(id=${cliente.id})}">Excluir</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(lista)}">
+                    <td colspan="5" class="vazio">Nenhum cliente encontrado. Confira a pesquisa ou cadastre um novo cliente.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>

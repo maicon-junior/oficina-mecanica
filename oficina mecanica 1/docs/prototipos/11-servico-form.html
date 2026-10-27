@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar serviço | Oficina Mecânica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- Protótipo de tela (HTML estático) do Sistema de Gestão de Oficina Mecânica -->
+<header class="topo">
+    <div class="topo-conteudo">
+        <a class="marca" href="01-painel.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#f2b705" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3 17.7 6.3 21l6.3-6.3a4 4 0 0 0 5.1-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/>
+            </svg>
+            Oficina Mecânica
+        </a>
+        <nav class="menu" aria-label="Menu principal">
+            <a href="01-painel.html">Painel</a>
+            <a href="02-ordens-lista.html">Ordens de serviço</a>
+            <a href="04-clientes-lista.html">Clientes</a>
+            <a href="06-veiculos-lista.html">Veículos</a>
+            <a href="08-mecanicos-lista.html">Mecânicos</a>
+            <a href="10-servicos-lista.html" class="ativo">Serviços</a>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="cabecalho-pagina">
+        <h1>Editar serviço</h1>
+    </div>
+
+    <div>
+    
+    
+</div>
+
+    <form class="painel" method="get" action="10-servicos-lista.html">
+        <input type="hidden" id="id" name="id" value="1">
+        <div class="grade">
+            <div class="campo">
+                <label for="descricao">Descrição <span class="obrigatorio">*</span></label>
+                <input required minlength="3" maxlength="100" id="descricao" name="descricao" value="Troca de &oacute;leo">
+            </div>
+            <div class="campo">
+                <label for="valor">Valor (R$) <span class="obrigatorio">*</span></label>
+                <input type="number" required min="0.01" step="0.01" id="valor" name="valor" value="120.00">
+                <span class="ajuda">Mudar o valor não altera as ordens de serviço já registradas.</span>
+            </div>
+        </div>
+        <div class="acoes-formulario">
+            <a class="botao" href="10-servicos-lista.html">Cancelar</a>
+            <button type="submit" class="botao primario">Salvar serviço</button>
+        </div>
+    </form>
+</main>
+<footer>
+    Sistema de Gestão de Oficina Mecânica, feito com Spring MVC, Thymeleaf e Spring Data JPA
+</footer>
+</body>
+</html>

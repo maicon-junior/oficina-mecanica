@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Serviços')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topo('servicos')}"></header>
+<main>
+    <div class="cabecalho-pagina">
+        <div>
+            <h1>Serviços</h1>
+            <p class="subtitulo">Tabela de serviços e preços da oficina</p>
+        </div>
+        <a class="botao primario" th:href="@{/servicos/novo}">Cadastrar serviço</a>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
+
+    <section class="painel">
+        <form class="pesquisa" method="get" th:action="@{/servicos}">
+            <div class="campo">
+                <label for="busca">Pesquisar pela descrição</label>
+                <input id="busca" name="busca" type="search" th:value="${busca}" placeholder="Ex.: Troca de óleo">
+            </div>
+            <button type="submit" class="botao">Pesquisar</button>
+        </form>
+
+        <div class="tabela-rolagem">
+            <table>
+                <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th class="numero">Valor</th>
+                    <th><span class="sr-only">Ações</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="servico : ${lista}">
+                    <td th:text="${servico.descricao}">Troca de óleo</td>
+                    <td class="numero" th:text="'R$ ' + ${#numbers.formatDecimal(servico.valor, 1, 'POINT', 2, 'COMMA')}">R$ 120,00</td>
+                    <td class="acoes-linha">
+                        <a class="botao pequeno" th:href="@{/servicos/{id}/editar(id=${servico.id})}">Editar</a>
+                        <a class="botao pequeno" th:href="@{/servicos/{id}/excluir(id=${servico.id})}">Excluir</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(lista)}">
+                    <td colspan="3" class="vazio">Nenhum serviço encontrado. Confira a pesquisa ou cadastre um novo serviço.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>

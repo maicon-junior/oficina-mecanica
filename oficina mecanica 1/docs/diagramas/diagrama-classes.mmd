@@ -1,0 +1,81 @@
+classDiagram
+    direction LR
+
+    class Cliente {
+        <<Entity>>
+        -Long id
+        -String nome
+        -String cpf
+        -String telefone
+        -String email
+        -String endereco
+    }
+
+    class Veiculo {
+        <<Entity>>
+        -Long id
+        -String placa
+        -String marca
+        -String modelo
+        -Integer ano
+        -String cor
+        -Cliente cliente
+        +getDescricao() String
+    }
+
+    class Mecanico {
+        <<Entity>>
+        -Long id
+        -String nome
+        -String cpf
+        -String telefone
+        -String especialidade
+    }
+
+    class Servico {
+        <<Entity>>
+        -Long id
+        -String descricao
+        -BigDecimal valor
+    }
+
+    class OrdemServico {
+        <<Entity>>
+        -Long id
+        -LocalDate dataAbertura
+        -LocalDate dataConclusao
+        -StatusOrdem status
+        -String observacao
+        -Veiculo veiculo
+        -Mecanico mecanico
+        -List~ItemServico~ itens
+        +adicionarItem(ItemServico item) void
+        +getValorTotal() BigDecimal
+    }
+
+    class ItemServico {
+        <<Entity>>
+        -Long id
+        -OrdemServico ordemServico
+        -Servico servico
+        -Integer quantidade
+        -BigDecimal valorUnitario
+        +getSubtotal() BigDecimal
+    }
+
+    class StatusOrdem {
+        <<enumeration>>
+        ABERTA
+        EM_ANDAMENTO
+        CONCLUIDA
+        CANCELADA
+        -String descricao
+        +getDescricao() String
+    }
+
+    Cliente "1" -- "0..*" Veiculo : possui
+    Veiculo "1" -- "0..*" OrdemServico : é atendido em
+    Mecanico "1" -- "0..*" OrdemServico : é responsável por
+    OrdemServico "1" *-- "1..*" ItemServico : contém
+    Servico "1" -- "0..*" ItemServico : é usado em
+    OrdemServico ..> StatusOrdem : usa

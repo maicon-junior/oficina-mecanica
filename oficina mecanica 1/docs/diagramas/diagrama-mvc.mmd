@@ -1,0 +1,98 @@
+classDiagram
+    direction TB
+
+    namespace Control {
+        class ClienteController
+        class VeiculoController
+        class MecanicoController
+        class ServicoController
+        class OrdemServicoController
+        class HomeController
+    }
+
+    namespace Model_Service {
+        class ClienteService {
+            +obterTodos() List~Cliente~
+            +pesquisar(String busca) List~Cliente~
+            +obterPeloId(Long id) Cliente
+            +salvar(Cliente cliente) Cliente
+            +excluir(Long id) void
+        }
+        class VeiculoService {
+            +obterTodos() List~Veiculo~
+            +pesquisar(String busca) List~Veiculo~
+            +obterPeloId(Long id) Veiculo
+            +salvar(Veiculo veiculo) Veiculo
+            +excluir(Long id) void
+        }
+        class MecanicoService {
+            +obterTodos() List~Mecanico~
+            +pesquisar(String busca) List~Mecanico~
+            +obterPeloId(Long id) Mecanico
+            +salvar(Mecanico mecanico) Mecanico
+            +excluir(Long id) void
+        }
+        class ServicoService {
+            +obterTodos() List~Servico~
+            +pesquisar(String busca) List~Servico~
+            +obterPeloId(Long id) Servico
+            +salvar(Servico servico) Servico
+            +excluir(Long id) void
+        }
+        class OrdemServicoService {
+            +pesquisar(StatusOrdem status, String placa) List~OrdemServico~
+            +obterUltimas() List~OrdemServico~
+            +obterPeloId(Long id) OrdemServico
+            +nova() OrdemServico
+            +obterResumo() Resumo
+            +salvar(OrdemServico ordem) OrdemServico
+            +excluir(Long id) void
+        }
+    }
+
+    namespace Model_Repository {
+        class ClienteRepository {
+            <<interface>>
+        }
+        class VeiculoRepository {
+            <<interface>>
+        }
+        class MecanicoRepository {
+            <<interface>>
+        }
+        class ServicoRepository {
+            <<interface>>
+        }
+        class OrdemServicoRepository {
+            <<interface>>
+        }
+        class ItemServicoRepository {
+            <<interface>>
+        }
+    }
+
+    HomeController --> OrdemServicoService
+    ClienteController --> ClienteService
+    VeiculoController --> VeiculoService
+    VeiculoController --> ClienteService
+    MecanicoController --> MecanicoService
+    ServicoController --> ServicoService
+    OrdemServicoController --> OrdemServicoService
+    OrdemServicoController --> VeiculoService
+    OrdemServicoController --> MecanicoService
+    OrdemServicoController --> ServicoService
+
+    ClienteService --> ClienteRepository
+    ClienteService --> VeiculoRepository
+    VeiculoService --> VeiculoRepository
+    VeiculoService --> ClienteRepository
+    VeiculoService --> OrdemServicoRepository
+    MecanicoService --> MecanicoRepository
+    MecanicoService --> OrdemServicoRepository
+    ServicoService --> ServicoRepository
+    ServicoService --> ItemServicoRepository
+    OrdemServicoService --> OrdemServicoRepository
+    OrdemServicoService --> VeiculoRepository
+    OrdemServicoService --> MecanicoRepository
+    OrdemServicoService --> ServicoRepository
+    OrdemServicoService --> ClienteRepository

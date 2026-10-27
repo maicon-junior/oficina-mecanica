@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ordens de serviço | Oficina Mecânica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- Protótipo de tela (HTML estático) do Sistema de Gestão de Oficina Mecânica -->
+<header class="topo">
+    <div class="topo-conteudo">
+        <a class="marca" href="01-painel.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#f2b705" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3 17.7 6.3 21l6.3-6.3a4 4 0 0 0 5.1-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/>
+            </svg>
+            Oficina Mecânica
+        </a>
+        <nav class="menu" aria-label="Menu principal">
+            <a href="01-painel.html">Painel</a>
+            <a href="02-ordens-lista.html" class="ativo">Ordens de serviço</a>
+            <a href="04-clientes-lista.html">Clientes</a>
+            <a href="06-veiculos-lista.html">Veículos</a>
+            <a href="08-mecanicos-lista.html">Mecânicos</a>
+            <a href="10-servicos-lista.html">Serviços</a>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="cabecalho-pagina">
+        <div>
+            <h1>Ordens de serviço</h1>
+            <p class="subtitulo">Atendimentos registrados na oficina</p>
+        </div>
+        <a class="botao primario" href="03-ordem-form.html">Abrir ordem de serviço</a>
+    </div>
+
+    <div>
+    
+    
+</div>
+
+    <section class="painel">
+        <form class="pesquisa" method="get" action="02-ordens-lista.html">
+            <div class="campo estreito">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="">Todos</option>
+                    <option value="ABERTA">Aberta</option>
+                    <option value="EM_ANDAMENTO">Em andamento</option>
+                    <option value="CONCLUIDA">Concluída</option>
+                    <option value="CANCELADA">Cancelada</option>
+                </select>
+            </div>
+            <div class="campo">
+                <label for="placa">Placa</label>
+                <input id="placa" name="placa" type="search" value="" placeholder="Ex.: ABC1D23">
+            </div>
+            <button type="submit" class="botao">Filtrar</button>
+        </form>
+
+        <div class="tabela-rolagem">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Placa</th>
+                    <th>Veículo</th>
+                    <th>Cliente</th>
+                    <th>Mecânico</th>
+                    <th>Abertura</th>
+                    <th>Conclusão</th>
+                    <th>Status</th>
+                    <th class="numero">Total</th>
+                    <th><span class="sr-only">Ações</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>3</td>
+                    <td><span class="placa"><span>RTY2T34</span></span></td>
+                    <td>Ford Ka</td>
+                    <td>Carlos Souza</td>
+                    <td>Pedro Santos</td>
+                    <td>27/10/2026</td>
+                    <td>—</td>
+                    <td><span class="status status-ABERTA">Aberta</span></td>
+                    <td class="numero">R$ 120,00</td>
+                    <td class="acoes-linha">
+                        <a class="botao pequeno" href="03-ordem-form.html">Editar</a>
+                        <a class="botao pequeno" href="12-confirmar-exclusao.html">Excluir</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><span class="placa"><span>QWE7R89</span></span></td>
+                    <td>Chevrolet Onix</td>
+                    <td>Maria Oliveira</td>
+                    <td>Lucas Pereira</td>
+                    <td>26/10/2026</td>
+                    <td>—</td>
+                    <td><span class="status status-EM_ANDAMENTO">Em andamento</span></td>
+                    <td class="numero">R$ 710,00</td>
+                    <td class="acoes-linha">
+                        <a class="botao pequeno" href="03-ordem-form.html">Editar</a>
+                        <a class="botao pequeno" href="12-confirmar-exclusao.html">Excluir</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td><span class="placa"><span>ABC1D23</span></span></td>
+                    <td>Volkswagen Gol</td>
+                    <td>João da Silva</td>
+                    <td>Pedro Santos</td>
+                    <td>22/10/2026</td>
+                    <td>23/10/2026</td>
+                    <td><span class="status status-CONCLUIDA">Concluída</span></td>
+                    <td class="numero">R$ 470,00</td>
+                    <td class="acoes-linha">
+                        <a class="botao pequeno" href="03-ordem-form.html">Editar</a>
+                        <a class="botao pequeno" href="12-confirmar-exclusao.html">Excluir</a>
+                    </td>
+                </tr>
+                
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<footer>
+    Sistema de Gestão de Oficina Mecânica, feito com Spring MVC, Thymeleaf e Spring Data JPA
+</footer>
+</body>
+</html>

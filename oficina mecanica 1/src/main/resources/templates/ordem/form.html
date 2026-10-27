@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${ordem.id} ? 'Ordem de serviço nº ' + ${ordem.id} : 'Abrir ordem de serviço')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topo('ordens')}"></header>
+<main>
+    <div class="cabecalho-pagina">
+        <div>
+            <h1 th:text="${ordem.id} ? 'Ordem de serviço nº ' + ${ordem.id} : 'Abrir ordem de serviço'">Abrir ordem de serviço</h1>
+            <p class="subtitulo">Veículo, mecânico responsável e serviços realizados</p>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
+
+    <form method="post" th:action="@{/ordens/salvar}" th:object="${ordem}">
+        <input type="hidden" th:field="*{id}">
+
+        <section class="painel">
+            <h2>Dados da ordem</h2>
+            <div class="grade">
+                <div class="campo">
+                    <label for="veiculo">Veículo <span class="obrigatorio">*</span></label>
+                    <select id="veiculo" name="veiculo.id" required>
+                        <option value="">Selecione o veículo</option>
+                        <option th:each="v : ${veiculos}" th:value="${v.id}" th:text="${v.descricao} + ' (' + ${v.cliente.nome} + ')'"
+                                th:selected="${ordem.veiculo != null and ordem.veiculo.id == v.id}">ABC1D23 - Volkswagen Gol (João da Silva)</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label for="mecanico">Mecânico responsável <span class="obrigatorio">*</span></label>
+                    <select id="mecanico" name="mecanico.id" required>
+                        <option value="">Selecione o mecânico</option>
+                        <option th:each="m : ${mecanicos}" th:value="${m.id}" th:text="${m.nome} + ' (' + ${m.especialidade} + ')'"
+                                th:selected="${ordem.mecanico != null and ordem.mecanico.id == m.id}">Pedro Santos (Motor)</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label for="dataAbertura">Data de abertura <span class="obrigatorio">*</span></label>
+                    <input th:field="*{dataAbertura}" type="date" required>
+                </div>
+                <div class="campo">
+                    <label for="dataConclusao">Data de conclusão</label>
+                    <input th:field="*{dataConclusao}" type="date">
+                    <span class="ajuda">Ao concluir sem data, o sistema usa a data de hoje.</span>
+                </div>
+                <div class="campo">
+                    <label for="status">Status <span class="obrigatorio">*</span></label>
+                    <select th:field="*{status}" required>
+                        <option th:each="s : ${statusLista}" th:value="${s.name()}" th:text="${s.descricao}">Aberta</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label for="observacao">Observação</label>
+                    <input th:field="*{observacao}" maxlength="255" placeholder="Ex.: Barulho na suspensão dianteira">
+                </div>
+            </div>
+        </section>
+
+        <section class="painel">
+            <h2>Serviços realizados</h2>
+            <div class="tabela-rolagem">
+                <table class="itens">
+                    <thead>
+                    <tr>
+                        <th>Serviço</th>
+                        <th>Quantidade</th>
+                        <th class="numero">Valor unitário</th>
+                        <th class="numero">Subtotal</th>
+                        <th><span class="sr-only">Ações</span></th>
+                    </tr>
+                    </thead>
+                    <tbody id="itens">
+                    <tr class="item" th:each="item, st : *{itens}"
+                        th:attr="data-servico-original=${item.servico?.id},data-valor-original=${item.valorUnitario}">
+                        <td>
+                            <select th:name="|itens[${st.index}].servico.id|" aria-label="Serviço">
+                                <option value="">Selecione o serviço</option>
+                                <option th:each="s : ${servicos}" th:value="${s.id}" th:text="${s.descricao}"
+                                        th:attr="data-valor=${s.valor}"
+                                        th:selected="${item.servico != null and item.servico.id == s.id}">Troca de óleo</option>
+                            </select>
+                        </td>
+                        <td><input type="number" min="1" th:name="|itens[${st.index}].quantidade|" th:value="${item.quantidade}" aria-label="Quantidade"></td>
+                        <td class="numero preco">R$ 120,00</td>
+                        <td class="numero subtotal">R$ 120,00</td>
+                        <td class="acoes-linha"><button type="button" class="botao pequeno remover">Remover</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <template id="modelo-item">
+                <tr class="item">
+                    <td>
+                        <select aria-label="Serviço">
+                            <option value="">Selecione o serviço</option>
+                            <option th:each="s : ${servicos}" th:value="${s.id}" th:text="${s.descricao}" th:attr="data-valor=${s.valor}">Troca de óleo</option>
+                        </select>
+                    </td>
+                    <td><input type="number" min="1" value="1" aria-label="Quantidade"></td>
+                    <td class="numero preco">—</td>
+                    <td class="numero subtotal">—</td>
+                    <td class="acoes-linha"><button type="button" class="botao pequeno remover">Remover</button></td>
+                </tr>
+            </template>
+
+            <div class="total-os">
+                <button type="button" class="botao" id="adicionar-item">Adicionar serviço</button>
+                <div>Total da ordem <strong id="total" th:text="'R$ ' + ${#numbers.formatDecimal(ordem.valorTotal, 1, 'POINT', 2, 'COMMA')}">R$ 120,00</strong></div>
+            </div>
+        </section>
+
+        <div class="acoes-formulario">
+            <a class="botao" th:href="@{/ordens}">Cancelar</a>
+            <button type="submit" class="botao primario">Salvar ordem de serviço</button>
+        </div>
+    </form>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+<script th:src="@{/js/ordem-servico.js}" src="../../static/js/ordem-servico.js"></script>
+</body>
+</html>

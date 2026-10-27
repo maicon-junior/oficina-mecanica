@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titulo} + ' | Oficina Mecânica'">Oficina Mecânica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+</head>
+<body>
+
+<header th:fragment="topo(ativo)" class="topo">
+    <div class="topo-conteudo">
+        <a class="marca" th:href="@{/}" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#f2b705" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3 17.7 6.3 21l6.3-6.3a4 4 0 0 0 5.1-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/>
+            </svg>
+            Oficina Mecânica
+        </a>
+        <nav class="menu" aria-label="Menu principal">
+            <a th:href="@{/}" th:classappend="${ativo == 'painel'} ? 'ativo'" href="#">Painel</a>
+            <a th:href="@{/ordens}" th:classappend="${ativo == 'ordens'} ? 'ativo'" href="#">Ordens de serviço</a>
+            <a th:href="@{/clientes}" th:classappend="${ativo == 'clientes'} ? 'ativo'" href="#">Clientes</a>
+            <a th:href="@{/veiculos}" th:classappend="${ativo == 'veiculos'} ? 'ativo'" href="#">Veículos</a>
+            <a th:href="@{/mecanicos}" th:classappend="${ativo == 'mecanicos'} ? 'ativo'" href="#">Mecânicos</a>
+            <a th:href="@{/servicos}" th:classappend="${ativo == 'servicos'} ? 'ativo'" href="#">Serviços</a>
+        </nav>
+    </div>
+</header>
+
+<div th:fragment="mensagens">
+    <div class="mensagem sucesso" role="status" th:if="${sucesso}" th:text="${sucesso}">Registro salvo com sucesso.</div>
+    <div class="mensagem erro" role="alert" th:if="${erro}" th:text="${erro}">Mensagem de erro.</div>
+</div>
+
+<span th:fragment="placa(placa)" class="placa"><span th:text="${placa}">ABC1D23</span></span>
+
+<footer th:fragment="rodape">
+    Sistema de Gestão de Oficina Mecânica, feito com Spring MVC, Thymeleaf e Spring Data JPA
+</footer>
+
+</body>
+</html>

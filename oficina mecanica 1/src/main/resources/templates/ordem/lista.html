@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Ordens de serviço')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topo('ordens')}"></header>
+<main>
+    <div class="cabecalho-pagina">
+        <div>
+            <h1>Ordens de serviço</h1>
+            <p class="subtitulo">Atendimentos registrados na oficina</p>
+        </div>
+        <a class="botao primario" th:href="@{/ordens/novo}">Abrir ordem de serviço</a>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
+
+    <section class="painel">
+        <form class="pesquisa" method="get" th:action="@{/ordens}">
+            <div class="campo estreito">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="">Todos</option>
+                    <option th:each="s : ${statusLista}" th:value="${s.name()}" th:text="${s.descricao}"
+                            th:selected="${s == statusSelecionado}">Aberta</option>
+                </select>
+            </div>
+            <div class="campo">
+                <label for="placa">Placa</label>
+                <input id="placa" name="placa" type="search" th:value="${placa}" placeholder="Ex.: ABC1D23">
+            </div>
+            <button type="submit" class="botao">Filtrar</button>
+        </form>
+
+        <div class="tabela-rolagem">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Placa</th>
+                    <th>Veículo</th>
+                    <th>Cliente</th>
+                    <th>Mecânico</th>
+                    <th>Abertura</th>
+                    <th>Conclusão</th>
+                    <th>Status</th>
+                    <th class="numero">Total</th>
+                    <th><span class="sr-only">Ações</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ordem : ${lista}">
+                    <td th:text="${ordem.id}">1</td>
+                    <td><span th:replace="~{fragments/layout :: placa(${ordem.veiculo.placa})}"></span></td>
+                    <td th:text="${ordem.veiculo.marca} + ' ' + ${ordem.veiculo.modelo}">Volkswagen Gol</td>
+                    <td th:text="${ordem.veiculo.cliente.nome}">João da Silva</td>
+                    <td th:text="${ordem.mecanico.nome}">Pedro Santos</td>
+                    <td th:text="${#temporals.format(ordem.dataAbertura, 'dd/MM/yyyy')}">22/10/2026</td>
+                    <td th:text="${ordem.dataConclusao} ? ${#temporals.format(ordem.dataConclusao, 'dd/MM/yyyy')} : '—'">23/10/2026</td>
+                    <td><span class="status" th:classappend="'status-' + ${ordem.status.name()}" th:text="${ordem.status.descricao}">Concluída</span></td>
+                    <td class="numero" th:text="'R$ ' + ${#numbers.formatDecimal(ordem.valorTotal, 1, 'POINT', 2, 'COMMA')}">R$ 470,00</td>
+                    <td class="acoes-linha">
+                        <a class="botao pequeno" th:href="@{/ordens/{id}/editar(id=${ordem.id})}">Editar</a>
+                        <a class="botao pequeno" th:href="@{/ordens/{id}/excluir(id=${ordem.id})}">Excluir</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(lista)}">
+                    <td colspan="10" class="vazio">Nenhuma ordem de serviço encontrada com esses filtros.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>

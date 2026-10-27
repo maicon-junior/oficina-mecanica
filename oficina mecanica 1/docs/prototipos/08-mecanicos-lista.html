@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mecânicos | Oficina Mecânica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- Protótipo de tela (HTML estático) do Sistema de Gestão de Oficina Mecânica -->
+<header class="topo">
+    <div class="topo-conteudo">
+        <a class="marca" href="01-painel.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#f2b705" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3 17.7 6.3 21l6.3-6.3a4 4 0 0 0 5.1-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/>
+            </svg>
+            Oficina Mecânica
+        </a>
+        <nav class="menu" aria-label="Menu principal">
+            <a href="01-painel.html">Painel</a>
+            <a href="02-ordens-lista.html">Ordens de serviço</a>
+            <a href="04-clientes-lista.html">Clientes</a>
+            <a href="06-veiculos-lista.html">Veículos</a>
+            <a href="08-mecanicos-lista.html" class="ativo">Mecânicos</a>
+            <a href="10-servicos-lista.html">Serviços</a>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="cabecalho-pagina">
+        <div>
+            <h1>Mecânicos</h1>
+            <p class="subtitulo">Responsáveis pelas ordens de serviço</p>
+        </div>
+        <a class="botao primario" href="09-mecanico-form.html">Cadastrar mecânico</a>
+    </div>
+
+    <div>
+    
+    
+</div>
+
+    <section class="painel">
+        <form class="pesquisa" method="get" action="08-mecanicos-lista.html">
+            <div class="campo">
+                <label for="busca">Pesquisar por nome ou especialidade</label>
+                <input id="busca" name="busca" type="search" value="" placeholder="Ex.: Freios">
+            </div>
+            <button type="submit" class="botao">Pesquisar</button>
+        </form>
+
+        <div class="tabela-rolagem">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Especialidade</th>
+                    <th><span class="sr-only">Ações</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Lucas Pereira</td>
+                    <td>333.444.555-66</td>
+                    <td>(47) 95555-5555</td>
+                    <td>Suspensão e freios</td>
+                    <td class="acoes-linha">
+                        <a class="botao pequeno" href="09-mecanico-form.html">Editar</a>
+                        <a class="botao pequeno" href="12-confirmar-exclusao.html">Excluir</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Pedro Santos</td>
+                    <td>222.333.444-55</td>
+                    <td>(47) 96666-4444</td>
+                    <td>Motor</td>
+                    <td class="acoes-linha">
+                        <a class="botao pequeno" href="09-mecanico-form.html">Editar</a>
+                        <a class="botao pequeno" href="12-confirmar-exclusao.html">Excluir</a>
+                    </td>
+                </tr>
+                
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<footer>
+    Sistema de Gestão de Oficina Mecânica, feito com Spring MVC, Thymeleaf e Spring Data JPA
+</footer>
+</body>
+</html>

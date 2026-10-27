@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${cliente.id} ? 'Editar cliente' : 'Cadastrar cliente')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topo('clientes')}"></header>
+<main>
+    <div class="cabecalho-pagina">
+        <h1 th:text="${cliente.id} ? 'Editar cliente' : 'Cadastrar cliente'">Cadastrar cliente</h1>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
+
+    <form class="painel" method="post" th:action="@{/clientes/salvar}" th:object="${cliente}">
+        <input type="hidden" th:field="*{id}">
+        <div class="grade">
+            <div class="campo inteiro">
+                <label for="nome">Nome <span class="obrigatorio">*</span></label>
+                <input th:field="*{nome}" required minlength="3" maxlength="100">
+            </div>
+            <div class="campo">
+                <label for="cpf">CPF <span class="obrigatorio">*</span></label>
+                <input th:field="*{cpf}" required maxlength="14" placeholder="000.000.000-00">
+            </div>
+            <div class="campo">
+                <label for="telefone">Telefone</label>
+                <input th:field="*{telefone}" maxlength="20" placeholder="(47) 99999-0000">
+            </div>
+            <div class="campo">
+                <label for="email">E-mail</label>
+                <input th:field="*{email}" type="email" maxlength="100">
+            </div>
+            <div class="campo">
+                <label for="endereco">Endereço</label>
+                <input th:field="*{endereco}" maxlength="150">
+            </div>
+        </div>
+        <div class="acoes-formulario">
+            <a class="botao" th:href="@{/clientes}">Cancelar</a>
+            <button type="submit" class="botao primario">Salvar cliente</button>
+        </div>
+    </form>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>
