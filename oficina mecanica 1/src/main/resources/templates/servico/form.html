@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${servico.id} ? 'Editar serviço' : 'Cadastrar serviço')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topo('servicos')}"></header>
+<main>
+    <div class="cabecalho-pagina">
+        <h1 th:text="${servico.id} ? 'Editar serviço' : 'Cadastrar serviço'">Cadastrar serviço</h1>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
+
+    <form class="painel" method="post" th:action="@{/servicos/salvar}" th:object="${servico}">
+        <input type="hidden" th:field="*{id}">
+        <div class="grade">
+            <div class="campo">
+                <label for="descricao">Descrição <span class="obrigatorio">*</span></label>
+                <input th:field="*{descricao}" required minlength="3" maxlength="100">
+            </div>
+            <div class="campo">
+                <label for="valor">Valor (R$) <span class="obrigatorio">*</span></label>
+                <input th:field="*{valor}" type="number" required min="0.01" step="0.01">
+                <span class="ajuda">Mudar o valor não altera as ordens de serviço já registradas.</span>
+            </div>
+        </div>
+        <div class="acoes-formulario">
+            <a class="botao" th:href="@{/servicos}">Cancelar</a>
+            <button type="submit" class="botao primario">Salvar serviço</button>
+        </div>
+    </form>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>

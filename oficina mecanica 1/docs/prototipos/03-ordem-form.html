@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ordem de serviço nº 2 | Oficina Mecânica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- Protótipo de tela (HTML estático) do Sistema de Gestão de Oficina Mecânica -->
+<header class="topo">
+    <div class="topo-conteudo">
+        <a class="marca" href="01-painel.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#f2b705" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3 17.7 6.3 21l6.3-6.3a4 4 0 0 0 5.1-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/>
+            </svg>
+            Oficina Mecânica
+        </a>
+        <nav class="menu" aria-label="Menu principal">
+            <a href="01-painel.html">Painel</a>
+            <a href="02-ordens-lista.html" class="ativo">Ordens de serviço</a>
+            <a href="04-clientes-lista.html">Clientes</a>
+            <a href="06-veiculos-lista.html">Veículos</a>
+            <a href="08-mecanicos-lista.html">Mecânicos</a>
+            <a href="10-servicos-lista.html">Serviços</a>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="cabecalho-pagina">
+        <div>
+            <h1>Ordem de serviço nº 2</h1>
+            <p class="subtitulo">Veículo, mecânico responsável e serviços realizados</p>
+        </div>
+    </div>
+
+    <div>
+    
+    
+</div>
+
+    <form method="get" action="02-ordens-lista.html">
+        <input type="hidden" id="id" name="id" value="2">
+
+        <section class="painel">
+            <h2>Dados da ordem</h2>
+            <div class="grade">
+                <div class="campo">
+                    <label for="veiculo">Veículo <span class="obrigatorio">*</span></label>
+                    <select id="veiculo" name="veiculo.id" required>
+                        <option value="">Selecione o veículo</option>
+                        <option value="1">ABC1D23 - Volkswagen Gol (João da Silva)</option>
+                        <option value="3" selected="selected">QWE7R89 - Chevrolet Onix (Maria Oliveira)</option>
+                        <option value="4">RTY2T34 - Ford Ka (Carlos Souza)</option>
+                        <option value="2">XYZ4E56 - Fiat Uno (Maria Oliveira)</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label for="mecanico">Mecânico responsável <span class="obrigatorio">*</span></label>
+                    <select id="mecanico" name="mecanico.id" required>
+                        <option value="">Selecione o mecânico</option>
+                        <option value="2" selected="selected">Lucas Pereira (Suspensão e freios)</option>
+                        <option value="1">Pedro Santos (Motor)</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label for="dataAbertura">Data de abertura <span class="obrigatorio">*</span></label>
+                    <input type="date" required id="dataAbertura" name="dataAbertura" value="2026-10-26">
+                </div>
+                <div class="campo">
+                    <label for="dataConclusao">Data de conclusão</label>
+                    <input type="date" id="dataConclusao" name="dataConclusao" value="">
+                    <span class="ajuda">Ao concluir sem data, o sistema usa a data de hoje.</span>
+                </div>
+                <div class="campo">
+                    <label for="status">Status <span class="obrigatorio">*</span></label>
+                    <select required id="status" name="status">
+                        <option value="ABERTA">Aberta</option>
+                        <option value="EM_ANDAMENTO" selected="selected">Em andamento</option>
+                        <option value="CONCLUIDA">Concluída</option>
+                        <option value="CANCELADA">Cancelada</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label for="observacao">Observação</label>
+                    <input maxlength="255" placeholder="Ex.: Barulho na suspensão dianteira" id="observacao" name="observacao" value="Barulho na suspens&atilde;o dianteira">
+                </div>
+            </div>
+        </section>
+
+        <section class="painel">
+            <h2>Serviços realizados</h2>
+            <div class="tabela-rolagem">
+                <table class="itens">
+                    <thead>
+                    <tr>
+                        <th>Serviço</th>
+                        <th>Quantidade</th>
+                        <th class="numero">Valor unitário</th>
+                        <th class="numero">Subtotal</th>
+                        <th><span class="sr-only">Ações</span></th>
+                    </tr>
+                    </thead>
+                    <tbody id="itens">
+                    <tr class="item" data-servico-original="5" data-valor-original="280.00">
+                        <td>
+                            <select name="itens[0].servico.id" aria-label="Serviço">
+                                <option value="">Selecione o serviço</option>
+                                <option value="2" data-valor="150.00">Alinhamento e balanceamento</option>
+                                <option value="4" data-valor="350.00">Revisão geral</option>
+                                <option value="5" data-valor="280.00" selected="selected">Troca de amortecedor (unidade)</option>
+                                <option value="3" data-valor="200.00">Troca de pastilhas de freio</option>
+                                <option value="1" data-valor="120.00">Troca de óleo</option>
+                            </select>
+                        </td>
+                        <td><input type="number" min="1" name="itens[0].quantidade" value="2" aria-label="Quantidade"></td>
+                        <td class="numero preco">R$ 120,00</td>
+                        <td class="numero subtotal">R$ 120,00</td>
+                        <td class="acoes-linha"><button type="button" class="botao pequeno remover">Remover</button></td>
+                    </tr>
+                    <tr class="item" data-servico-original="2" data-valor-original="150.00">
+                        <td>
+                            <select name="itens[1].servico.id" aria-label="Serviço">
+                                <option value="">Selecione o serviço</option>
+                                <option value="2" data-valor="150.00" selected="selected">Alinhamento e balanceamento</option>
+                                <option value="4" data-valor="350.00">Revisão geral</option>
+                                <option value="5" data-valor="280.00">Troca de amortecedor (unidade)</option>
+                                <option value="3" data-valor="200.00">Troca de pastilhas de freio</option>
+                                <option value="1" data-valor="120.00">Troca de óleo</option>
+                            </select>
+                        </td>
+                        <td><input type="number" min="1" name="itens[1].quantidade" value="1" aria-label="Quantidade"></td>
+                        <td class="numero preco">R$ 120,00</td>
+                        <td class="numero subtotal">R$ 120,00</td>
+                        <td class="acoes-linha"><button type="button" class="botao pequeno remover">Remover</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <template id="modelo-item">
+                <tr class="item">
+                    <td>
+                        <select aria-label="Serviço">
+                            <option value="">Selecione o serviço</option>
+                            <option value="2" data-valor="150.00">Alinhamento e balanceamento</option>
+                            <option value="4" data-valor="350.00">Revisão geral</option>
+                            <option value="5" data-valor="280.00">Troca de amortecedor (unidade)</option>
+                            <option value="3" data-valor="200.00">Troca de pastilhas de freio</option>
+                            <option value="1" data-valor="120.00">Troca de óleo</option>
+                        </select>
+                    </td>
+                    <td><input type="number" min="1" value="1" aria-label="Quantidade"></td>
+                    <td class="numero preco">—</td>
+                    <td class="numero subtotal">—</td>
+                    <td class="acoes-linha"><button type="button" class="botao pequeno remover">Remover</button></td>
+                </tr>
+            </template>
+
+            <div class="total-os">
+                <button type="button" class="botao" id="adicionar-item">Adicionar serviço</button>
+                <div>Total da ordem <strong id="total">R$ 710,00</strong></div>
+            </div>
+        </section>
+
+        <div class="acoes-formulario">
+            <a class="botao" href="02-ordens-lista.html">Cancelar</a>
+            <button type="submit" class="botao primario">Salvar ordem de serviço</button>
+        </div>
+    </form>
+</main>
+<footer>
+    Sistema de Gestão de Oficina Mecânica, feito com Spring MVC, Thymeleaf e Spring Data JPA
+</footer>
+<script src="js/ordem-servico.js"></script>
+</body>
+</html>

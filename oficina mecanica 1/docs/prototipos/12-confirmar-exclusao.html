@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Excluir cliente | Oficina Mecânica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- Protótipo de tela (HTML estático) do Sistema de Gestão de Oficina Mecânica -->
+<header class="topo">
+    <div class="topo-conteudo">
+        <a class="marca" href="01-painel.html">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#f2b705" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3 17.7 6.3 21l6.3-6.3a4 4 0 0 0 5.1-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/>
+            </svg>
+            Oficina Mecânica
+        </a>
+        <nav class="menu" aria-label="Menu principal">
+            <a href="01-painel.html">Painel</a>
+            <a href="02-ordens-lista.html">Ordens de serviço</a>
+            <a href="04-clientes-lista.html" class="ativo">Clientes</a>
+            <a href="06-veiculos-lista.html">Veículos</a>
+            <a href="08-mecanicos-lista.html">Mecânicos</a>
+            <a href="10-servicos-lista.html">Serviços</a>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="cabecalho-pagina">
+        <h1>Excluir cliente</h1>
+    </div>
+
+    <section class="painel confirmacao">
+        <p class="aviso">Esta ação não pode ser desfeita.</p>
+        <dl>
+            
+                <dt>Nome</dt>
+                <dd>João da Silva</dd>
+            
+                <dt>CPF</dt>
+                <dd>123.456.789-00</dd>
+            
+                <dt>Telefone</dt>
+                <dd>(47) 99999-1111</dd>
+            
+                <dt>E-mail</dt>
+                <dd>joao@email.com</dd>
+            
+        </dl>
+        <form method="get" action="04-clientes-lista.html" class="acoes">
+            <button type="submit" class="botao perigo">Excluir</button>
+            <a class="botao" href="04-clientes-lista.html">Cancelar</a>
+        </form>
+    </section>
+</main>
+<footer>
+    Sistema de Gestão de Oficina Mecânica, feito com Spring MVC, Thymeleaf e Spring Data JPA
+</footer>
+</body>
+</html>
