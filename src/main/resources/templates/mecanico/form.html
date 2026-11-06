@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${mecanico.id} ? 'Editar mecânico' : 'Cadastrar mecânico')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topo('mecanicos')}"></header>
+<main>
+    <div class="cabecalho-pagina">
+        <h1 th:text="${mecanico.id} ? 'Editar mecânico' : 'Cadastrar mecânico'">Cadastrar mecânico</h1>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
+
+    <form class="painel" method="post" th:action="@{/mecanicos/salvar}" th:object="${mecanico}">
+        <input type="hidden" th:field="*{id}">
+        <div class="grade">
+            <div class="campo inteiro">
+                <label for="nome">Nome <span class="obrigatorio">*</span></label>
+                <input th:field="*{nome}" required minlength="3" maxlength="100">
+            </div>
+            <div class="campo">
+                <label for="cpf">CPF <span class="obrigatorio">*</span></label>
+                <input th:field="*{cpf}" required maxlength="14" placeholder="000.000.000-00">
+            </div>
+            <div class="campo">
+                <label for="telefone">Telefone</label>
+                <input th:field="*{telefone}" maxlength="20" placeholder="(47) 99999-0000">
+            </div>
+            <div class="campo inteiro">
+                <label for="especialidade">Especialidade</label>
+                <input th:field="*{especialidade}" maxlength="50" placeholder="Ex.: Motor, Suspensão e freios">
+            </div>
+        </div>
+        <div class="acoes-formulario">
+            <a class="botao" th:href="@{/mecanicos}">Cancelar</a>
+            <button type="submit" class="botao primario">Salvar mecânico</button>
+        </div>
+    </form>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>

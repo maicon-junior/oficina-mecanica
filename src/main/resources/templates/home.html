@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Painel')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topo('painel')}"></header>
+<main>
+    <div class="cabecalho-pagina">
+        <div>
+            <h1>Painel da oficina</h1>
+            <p class="subtitulo">Situação dos atendimentos de hoje</p>
+        </div>
+        <a class="botao primario" th:href="@{/ordens/novo}">Abrir ordem de serviço</a>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
+
+    <div class="quadro">
+        <a class="q-ABERTA" th:href="@{/ordens(status='ABERTA')}">
+            <span class="valor" th:text="${resumo.ordensAbertas}">1</span>
+            <span class="rotulo">Ordens abertas</span>
+        </a>
+        <a class="q-EM_ANDAMENTO" th:href="@{/ordens(status='EM_ANDAMENTO')}">
+            <span class="valor" th:text="${resumo.ordensEmAndamento}">1</span>
+            <span class="rotulo">Em andamento</span>
+        </a>
+        <a class="q-CONCLUIDA" th:href="@{/ordens(status='CONCLUIDA')}">
+            <span class="valor" th:text="${resumo.ordensConcluidas}">1</span>
+            <span class="rotulo">Concluídas</span>
+        </a>
+        <a th:href="@{/clientes}">
+            <span class="valor" th:text="${resumo.clientes}">3</span>
+            <span class="rotulo">Clientes</span>
+        </a>
+        <a th:href="@{/veiculos}">
+            <span class="valor" th:text="${resumo.veiculos}">4</span>
+            <span class="rotulo">Veículos</span>
+        </a>
+    </div>
+
+    <section class="painel">
+        <h2>Últimas ordens de serviço</h2>
+        <div class="tabela-rolagem">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Placa</th>
+                    <th>Cliente</th>
+                    <th>Mecânico</th>
+                    <th>Abertura</th>
+                    <th>Status</th>
+                    <th class="numero">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ordem : ${ultimasOrdens}">
+                    <td><a th:href="@{/ordens/{id}/editar(id=${ordem.id})}" th:text="${ordem.id}">3</a></td>
+                    <td><span th:replace="~{fragments/layout :: placa(${ordem.veiculo.placa})}"></span></td>
+                    <td th:text="${ordem.veiculo.cliente.nome}">Carlos Souza</td>
+                    <td th:text="${ordem.mecanico.nome}">Pedro Santos</td>
+                    <td th:text="${#temporals.format(ordem.dataAbertura, 'dd/MM/yyyy')}">27/10/2026</td>
+                    <td><span class="status" th:classappend="'status-' + ${ordem.status.name()}" th:text="${ordem.status.descricao}">Aberta</span></td>
+                    <td class="numero" th:text="'R$ ' + ${#numbers.formatDecimal(ordem.valorTotal, 1, 'POINT', 2, 'COMMA')}">R$ 120,00</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(ultimasOrdens)}">
+                    <td colspan="7" class="vazio">Nenhuma ordem de serviço registrada. Abra a primeira pelo botão acima.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>

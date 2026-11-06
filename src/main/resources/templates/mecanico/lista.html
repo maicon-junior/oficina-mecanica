@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Mecânicos')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topo('mecanicos')}"></header>
+<main>
+    <div class="cabecalho-pagina">
+        <div>
+            <h1>Mecânicos</h1>
+            <p class="subtitulo">Responsáveis pelas ordens de serviço</p>
+        </div>
+        <a class="botao primario" th:href="@{/mecanicos/novo}">Cadastrar mecânico</a>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
+
+    <section class="painel">
+        <form class="pesquisa" method="get" th:action="@{/mecanicos}">
+            <div class="campo">
+                <label for="busca">Pesquisar por nome ou especialidade</label>
+                <input id="busca" name="busca" type="search" th:value="${busca}" placeholder="Ex.: Freios">
+            </div>
+            <button type="submit" class="botao">Pesquisar</button>
+        </form>
+
+        <div class="tabela-rolagem">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Especialidade</th>
+                    <th><span class="sr-only">Ações</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="mecanico : ${lista}">
+                    <td th:text="${mecanico.nome}">Pedro Santos</td>
+                    <td th:text="${mecanico.cpf}">222.333.444-55</td>
+                    <td th:text="${mecanico.telefone}">(47) 96666-4444</td>
+                    <td th:text="${mecanico.especialidade}">Motor</td>
+                    <td class="acoes-linha">
+                        <a class="botao pequeno" th:href="@{/mecanicos/{id}/editar(id=${mecanico.id})}">Editar</a>
+                        <a class="botao pequeno" th:href="@{/mecanicos/{id}/excluir(id=${mecanico.id})}">Excluir</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(lista)}">
+                    <td colspan="5" class="vazio">Nenhum mecânico encontrado. Confira a pesquisa ou cadastre um novo mecânico.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${titulo})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topo(${#strings.substring(voltar, 1)})}"></header>
+<main>
+    <div class="cabecalho-pagina">
+        <h1 th:text="${titulo}">Excluir cliente</h1>
+    </div>
+
+    <section class="painel confirmacao">
+        <p class="aviso">Esta ação não pode ser desfeita.</p>
+        <dl>
+            <th:block th:each="item : ${detalhes}">
+                <dt th:text="${item.key}">Nome</dt>
+                <dd th:text="${item.value} ?: '—'">João da Silva</dd>
+            </th:block>
+        </dl>
+        <form method="post" th:action="@{${acao}}" class="acoes">
+            <button type="submit" class="botao perigo">Excluir</button>
+            <a class="botao" th:href="@{${voltar}}">Cancelar</a>
+        </form>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>

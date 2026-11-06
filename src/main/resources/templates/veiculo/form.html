@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${veiculo.id} ? 'Editar veículo' : 'Cadastrar veículo')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topo('veiculos')}"></header>
+<main>
+    <div class="cabecalho-pagina">
+        <h1 th:text="${veiculo.id} ? 'Editar veículo' : 'Cadastrar veículo'">Cadastrar veículo</h1>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensagens}"></div>
+
+    <form class="painel" method="post" th:action="@{/veiculos/salvar}" th:object="${veiculo}">
+        <input type="hidden" th:field="*{id}">
+        <div class="grade">
+            <div class="campo">
+                <label for="placa">Placa <span class="obrigatorio">*</span></label>
+                <input th:field="*{placa}" required maxlength="8" placeholder="ABC1D23">
+                <span class="ajuda">Padrão antigo ou Mercosul, com 7 caracteres.</span>
+            </div>
+            <div class="campo">
+                <label for="cliente">Cliente (dono) <span class="obrigatorio">*</span></label>
+                <select id="cliente" name="cliente.id" required>
+                    <option value="">Selecione o cliente</option>
+                    <option th:each="c : ${clientes}" th:value="${c.id}" th:text="${c.nome} + ' (' + ${c.cpf} + ')'"
+                            th:selected="${veiculo.cliente != null and veiculo.cliente.id == c.id}">João da Silva</option>
+                </select>
+            </div>
+            <div class="campo">
+                <label for="marca">Marca <span class="obrigatorio">*</span></label>
+                <input th:field="*{marca}" required maxlength="50">
+            </div>
+            <div class="campo">
+                <label for="modelo">Modelo <span class="obrigatorio">*</span></label>
+                <input th:field="*{modelo}" required maxlength="50">
+            </div>
+            <div class="campo">
+                <label for="ano">Ano <span class="obrigatorio">*</span></label>
+                <input th:field="*{ano}" type="number" required min="1900">
+            </div>
+            <div class="campo">
+                <label for="cor">Cor</label>
+                <input th:field="*{cor}" maxlength="30">
+            </div>
+        </div>
+        <div class="acoes-formulario">
+            <a class="botao" th:href="@{/veiculos}">Cancelar</a>
+            <button type="submit" class="botao primario">Salvar veículo</button>
+        </div>
+    </form>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>
